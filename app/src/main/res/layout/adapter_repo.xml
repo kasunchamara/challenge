@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="8dp"
+    app:strokeColor="#CCCCCC"
+    app:strokeWidth="1dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.user.ProfileFragment">
+
+        <TextView
+            android:id="@+id/textViewLogin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/source_sans_pro_regular"
+            android:gravity="start"
+            tools:text="setaylor"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewProfileImg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewProfileImg"
+            app:layout_constraintTop_toTopOf="@+id/imageViewProfileImg" />
+
+        <ImageView
+            android:id="@+id/imageViewProfileImg"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/textViewRepoName"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/source_sans_pro_semi_bold"
+            android:gravity="center_vertical"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageViewProfileImg"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewProfileImg"
+            tools:text="telegraph-android" />
+
+        <TextView
+            android:id="@+id/textViewRepoDesc"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/source_sans_pro_regular"
+            android:gravity="center_vertical"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageViewProfileImg"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRepoName"
+            tools:text="Telegraph X is Android client see the klittle" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRepoDesc"
+            app:srcCompat="@drawable/ic_star" />
+
+        <TextView
+            android:id="@+id/textViewStars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/source_sans_pro_regular"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            tools:text="75" />
+
+        <ImageView
+            android:id="@+id/imageViewCircle"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewStars"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRepoDesc"
+            app:srcCompat="@drawable/ic_brightness" />
+
+        <TextView
+            android:id="@+id/textViewPrimaryLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/source_sans_pro_regular"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewCircle"
+            app:layout_constraintStart_toEndOf="@+id/imageViewCircle"
+            app:layout_constraintTop_toTopOf="@+id/imageViewCircle"
+            tools:text="Kotlin" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

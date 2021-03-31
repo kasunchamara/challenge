@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Otrium Challenge</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="followers">%1$d Followers</string>
+    <string name="following">%1$d Following</string>
+
+    <string name="view_all"><u><font color='black'>View all</font></u></string>
+    <string name="profile">Profile</string>
+</resources>
