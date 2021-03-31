@@ -5,6 +5,11 @@ import com.mobile.otrium.ui.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
+/*
+* @modules Activity builder
+* @contributesAndroidInjector MainFragmentBuilderModule
+* @abstract MainActivity
+* */
 @Module
 abstract class ActivityBuilderModule {
 

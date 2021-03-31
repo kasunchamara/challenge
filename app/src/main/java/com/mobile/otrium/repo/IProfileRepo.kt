@@ -4,7 +4,11 @@ import com.apollographql.apollo.api.Response
 import com.mobile.otrium.ProfileQuery
 import io.reactivex.rxjava3.core.Observable
 
-interface ProfileRepository {
+/*
+* Interface profile repository
+* @fun getProfileInfo : get graphQL profile data
+* */
+interface IProfileRepo {
 
     fun getProfileInfo(): Observable<Response<ProfileQuery.Data>>
 }

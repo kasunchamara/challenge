@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mobile.otrium.ProfileQuery
 import com.mobile.otrium.R
-import com.mobile.otrium.repo.ProfileRepositoryImpl
+import com.mobile.otrium.repo.ProfileRepo
 import com.mobile.otrium.ui.user.adapter.FeedAdapter
 import com.mobile.otrium.ui.user.adapter.FeedItemBinder
 import com.mobile.otrium.ui.user.adapter.FeedItemClass
@@ -44,9 +44,6 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
 
     @Inject
     lateinit var presenter: ProfilePresenter
-
-    @Inject
-    lateinit var profileRepo: ProfileRepositoryImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
