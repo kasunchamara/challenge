@@ -1,4 +1,4 @@
-package com.mobile.otrium.ui
+package com.mobile.otrium.ui.view
 
 import android.os.Bundle
 import com.mobile.otrium.R

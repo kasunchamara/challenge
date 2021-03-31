@@ -1,9 +1,7 @@
 package com.mobile.otrium.util
 
 object Constants {
-
-    const val BASE_URL = ""
-
-    // ViewHolder Types
-    const val HORIZONTAL_LIST = 2
+    // recycle view orientation Types
+    const val HORIZONTAL = 0
+    const val VERTICAL = 1;
 }

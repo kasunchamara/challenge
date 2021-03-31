@@ -9,7 +9,11 @@ typealias FeedItemBinder = FeedItemViewBinder<Any, RecyclerView.ViewHolder>
 
 class FeedAdapter(
     private val viewBinders: Map<FeedItemClass, FeedItemBinder>
-) : ListAdapter<Any, RecyclerView.ViewHolder>(FeedDiffCallback(viewBinders)) {
+) : ListAdapter<Any, RecyclerView.ViewHolder>(
+    FeedDiffCallback(
+        viewBinders
+    )
+) {
 
     private val viewTypeToBinders = viewBinders.mapKeys { it.value.getFeedItemType() }
 

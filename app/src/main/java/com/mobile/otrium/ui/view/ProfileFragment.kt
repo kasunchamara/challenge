@@ -1,26 +1,27 @@
-package com.mobile.otrium.ui.user
+package com.mobile.otrium.ui.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mobile.otrium.ProfileQuery
 import com.mobile.otrium.R
-import com.mobile.otrium.repo.ProfileRepo
+import com.mobile.otrium.models.User
+import com.mobile.otrium.models.UserRepo
+import com.mobile.otrium.models.UserRepoList
+import com.mobile.otrium.ui.contract.ProfileContract
+import com.mobile.otrium.ui.presenter.ProfilePresenter
 import com.mobile.otrium.ui.user.adapter.FeedAdapter
 import com.mobile.otrium.ui.user.adapter.FeedItemBinder
 import com.mobile.otrium.ui.user.adapter.FeedItemClass
-import com.mobile.otrium.models.UserRepoList
-import com.mobile.otrium.models.UserRepo
-import com.mobile.otrium.models.User
-import com.mobile.otrium.ui.contract.ProfileContract
-import com.mobile.otrium.ui.user.adapter.viewholder.RepoListViewBinder
-import com.mobile.otrium.ui.user.adapter.viewholder.UserProfileViewBinder
+import com.mobile.otrium.ui.user.viewholder.RepoListViewBinder
+import com.mobile.otrium.ui.user.viewholder.UserProfileViewBinder
 import com.mobile.otrium.util.Constants
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -28,10 +29,6 @@ import javax.inject.Inject
 
 class ProfileFragment : DaggerFragment(), ProfileContract.View,
     SwipeRefreshLayout.OnRefreshListener {
-
-    companion object {
-        private const val TAG = "ProfileFragment"
-    }
 
     private val arrayListRepos: ArrayList<Any> = ArrayList()
     private val arrayListPinnedUserRepos: ArrayList<UserRepo> = ArrayList()
@@ -65,8 +62,8 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
         presenter.getProfileData(false)
     }
 
-    private fun subscribeObservers() {
-        presenter.getUserLiveData().observe(this, Observer {
+    override fun getUserLiveData(data: MutableLiveData<ProfileQuery.Data>) {
+        data.observe(this, Observer {
             if (it != null) {
                 addData(
                     it,
@@ -79,14 +76,21 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
                 println("User login: Error")
             }
         })
+    }
 
-        presenter.getRefreshedUserLiveData().observe(this, Observer {
+    override fun getRefreshUserLiveData(data: MutableLiveData<ProfileQuery.Data>) {
+        data.observe(this, Observer {
             if (it != null) {
                 addData(it, ArrayList(), ArrayList(), ArrayList(), ArrayList())
             } else {
                 println("User login: Error")
             }
         })
+    }
+
+    private fun subscribeObservers() {
+        presenter.getUserLiveData()
+        presenter.getRefreshedUserLiveData()
     }
 
     private fun addData(
@@ -126,7 +130,7 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
             val pinnedReposListUser: UserRepoList =
                 UserRepoList(
                     listPinnedUserRepos,
-                    Constants.HORIZONTAL_LIST
+                    Constants.VERTICAL
                 )
             pinnedReposListUser.title = "Pinned"
             list.add(pinnedReposListUser)
@@ -150,7 +154,7 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
             val topReposListUser: UserRepoList =
                 UserRepoList(
                     listTopUserRepos,
-                    Constants.HORIZONTAL_LIST
+                    Constants.HORIZONTAL
                 )
             topReposListUser.title = "Top repositories"
             list.add(topReposListUser)
@@ -174,7 +178,7 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
             val starredReposListUser: UserRepoList =
                 UserRepoList(
                     listStarredUserRepos,
-                    Constants.HORIZONTAL_LIST
+                    Constants.HORIZONTAL
                 )
             starredReposListUser.title = "Starred repositories"
             list.add(starredReposListUser)
@@ -196,13 +200,15 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
         if (adapter == null) {
             val viewBinders = mutableMapOf<FeedItemClass, FeedItemBinder>()
 
-            val userProfileViewBinder = UserProfileViewBinder { data: User ->
-                userProfileClick(data)
-            }
+            val userProfileViewBinder =
+                UserProfileViewBinder { data: User ->
+                    userProfileClick(data)
+                }
 
-            val repoListViewBinder = RepoListViewBinder { data: UserRepo ->
-                repoItemClick(data)
-            }
+            val repoListViewBinder =
+                RepoListViewBinder { data: UserRepo ->
+                    repoItemClick(data)
+                }
 
             viewBinders[userProfileViewBinder.modelClass] = userProfileViewBinder as FeedItemBinder
 
@@ -225,4 +231,5 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
         swipeContainer?.isRefreshing = false
         presenter.getProfileData(true)
     }
+
 }

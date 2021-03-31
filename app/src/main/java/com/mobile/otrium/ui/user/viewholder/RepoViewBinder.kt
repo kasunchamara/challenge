@@ -1,4 +1,4 @@
-package com.mobile.otrium.ui.user.adapter.viewholder
+package com.mobile.otrium.ui.user.viewholder
 
 import android.view.LayoutInflater
 import android.view.View

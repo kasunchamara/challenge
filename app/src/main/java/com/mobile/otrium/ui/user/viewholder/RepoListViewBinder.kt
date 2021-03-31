@@ -1,4 +1,4 @@
-package com.mobile.otrium.ui.user.adapter.viewholder
+package com.mobile.otrium.ui.user.viewholder
 
 import android.view.LayoutInflater
 import android.view.View
@@ -35,7 +35,7 @@ class RepoListViewBinder(val block: (data: UserRepo) -> Unit) :
         oldItem == newItem
 
     override fun areItemsTheSame(oldItem: UserRepoList, newItem: UserRepoList): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.listOrientation == newItem.listOrientation
     }
 }
 
@@ -53,16 +53,18 @@ class RepoListViewHolder(val view: View, val block: (data: UserRepo) -> Unit) :
 
         itemView.apply {
             if (adapter == null) {
-                val repoViewBinder = RepoViewBinder { userRepo: UserRepo ->
-                    block(userRepo)
-                }
+                val repoViewBinder =
+                    RepoViewBinder { userRepo: UserRepo ->
+                        block(userRepo)
+                    }
                 val viewBinders = mutableMapOf<FeedItemClass, FeedItemBinder>()
 
                 viewBinders.put(
                     repoViewBinder.modelClass,
                     repoViewBinder as FeedItemBinder
                 )
-                adapter = FeedAdapter(viewBinders)
+                adapter =
+                    FeedAdapter(viewBinders)
             }
 
             tv_horizontal_header?.text = data.title
@@ -70,7 +72,7 @@ class RepoListViewHolder(val view: View, val block: (data: UserRepo) -> Unit) :
 
                 layoutManager = LinearLayoutManager(
                     adapter_recycllerview?.context,
-                    LinearLayoutManager.HORIZONTAL, false
+                    data.listOrientation, false
                 )
                 if (adapter_recycllerview?.adapter == null) {
                     adapter_recycllerview?.adapter = adapter

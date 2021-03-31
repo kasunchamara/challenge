@@ -1,7 +1,7 @@
 package com.mobile.otrium.di.module.activity
 
 import com.mobile.otrium.di.module.fragment.MainFragmentBuilderModule
-import com.mobile.otrium.ui.MainActivity
+import com.mobile.otrium.ui.view.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

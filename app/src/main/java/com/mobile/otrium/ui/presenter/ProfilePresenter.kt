@@ -1,16 +1,13 @@
-package com.mobile.otrium.ui.user
+package com.mobile.otrium.ui.presenter
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.mobile.otrium.ProfileQuery
 import com.mobile.otrium.repo.ProfileRepo
-import com.mobile.otrium.ui.base.BasePresenter
 import com.mobile.otrium.ui.contract.ProfileContract
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
-class ProfilePresenter(private val repo: ProfileRepo) : BasePresenter<ProfileContract.View>() {
-
-    private val TAG = "ProfilePresenter"
+class ProfilePresenter(private val repo: ProfileRepo, val view: ProfileContract.View) : ProfileContract.Presenter, ViewModel() {
 
     private val mCompositeDisposable = CompositeDisposable()
 
@@ -35,22 +32,16 @@ class ProfilePresenter(private val repo: ProfileRepo) : BasePresenter<ProfileCon
                             userLiveData.postValue(null)
                         else
                             refreshedUserLiveData.postValue(null)
-                        Log.e(TAG, t.message)
                     }
                 )
         )
     }
 
-//    override fun onCleared() {
-//        mCompositeDisposable.clear()
-//        super.onCleared()
-//    }
-
-    fun getUserLiveData(): MutableLiveData<ProfileQuery.Data> {
-        return userLiveData
+    override fun getUserLiveData() {
+        view.getUserLiveData(userLiveData)
     }
 
-    fun getRefreshedUserLiveData(): MutableLiveData<ProfileQuery.Data> {
-        return refreshedUserLiveData
+    override fun getRefreshedUserLiveData() {
+        view.getRefreshUserLiveData(refreshedUserLiveData)
     }
 }

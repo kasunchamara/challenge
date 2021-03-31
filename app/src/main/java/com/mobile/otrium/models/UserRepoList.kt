@@ -10,6 +10,6 @@ import com.mobile.otrium.util.Constants
 * */
 data class UserRepoList(
     val userRepos: ArrayList<UserRepo>,
-    val id: Int = Constants.HORIZONTAL_LIST,
+    val listOrientation: Int = Constants.HORIZONTAL,
     var title: String = ""
 )
