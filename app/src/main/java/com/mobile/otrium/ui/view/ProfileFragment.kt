@@ -1,10 +1,12 @@
 package com.mobile.otrium.ui.view
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,24 +29,27 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_profile.*
 import javax.inject.Inject
 
+/*
+* View profile fragment use MainActivity layout
+* */
 class ProfileFragment : DaggerFragment(), ProfileContract.View,
     SwipeRefreshLayout.OnRefreshListener {
 
-    private val arrayListRepos: ArrayList<Any> = ArrayList()
-    private val arrayListPinnedUserRepos: ArrayList<UserRepo> = ArrayList()
-    private val arrayListTopUserRepos: ArrayList<UserRepo> = ArrayList()
-    private val arrayListStarredUserRepos: ArrayList<UserRepo> = ArrayList()
-    private val profile: ArrayList<User> = ArrayList()
+    private val arrayListRepos: ArrayList<Any> = ArrayList() // repository main list
+    private val arrayListPinnedUserRepos: ArrayList<UserRepo> = ArrayList() // pinned repository list
+    private val arrayListTopUserRepos: ArrayList<UserRepo> = ArrayList() // top repository list
+    private val arrayListStarredUserRepos: ArrayList<UserRepo> = ArrayList() // starred repository list
+    private val profile: ArrayList<User> = ArrayList() // profile detail list
 
     private var adapter: FeedAdapter? = null
     private var swipeContainer: SwipeRefreshLayout? = null
 
     @Inject
-    lateinit var presenter: ProfilePresenter
+    lateinit var presenter: ProfilePresenter // inject profile presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        subscribeObservers()
+        subscribeObservers() //get the data
     }
 
     override fun onCreateView(
@@ -59,7 +64,7 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
         super.onViewCreated(view, savedInstanceState)
         swipeContainer = view.findViewById(R.id.swipeContainer)
         swipeContainer?.setOnRefreshListener(this)
-        presenter.getProfileData(false)
+        presenter.getProfileData(false) // presenter call the get data main presenter method
     }
 
     override fun getUserLiveData(data: MutableLiveData<ProfileQuery.Data>) {
@@ -73,7 +78,7 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
                     arrayListStarredUserRepos
                 )
             } else {
-                println("User login: Error")
+                showErrorDialog()
             }
         })
     }
@@ -83,9 +88,33 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
             if (it != null) {
                 addData(it, ArrayList(), ArrayList(), ArrayList(), ArrayList())
             } else {
-                println("User login: Error")
+                showErrorDialog()
             }
         })
+    }
+
+    private fun showErrorDialog() {
+        val builder = context?.let { AlertDialog.Builder(it) }
+        builder?.setTitle(R.string.error_title)
+        builder?.setMessage(R.string.error_desc)
+        builder?.setPositiveButton(R.string.ok){ _: DialogInterface?, _: Int ->
+            (activity as MainActivity).onBack()
+        }
+        val alertDialog: AlertDialog = builder!!.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
+
+    override fun showProgress() {
+        if (progressBar?.visibility != View.VISIBLE) {
+            progressBar?.visibility = View.VISIBLE
+        }
+    }
+
+    override fun hideProgress() {
+        if (progressBar?.visibility == View.VISIBLE) {
+            progressBar?.visibility = View.INVISIBLE
+        }
     }
 
     private fun subscribeObservers() {
@@ -114,20 +143,20 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
 
         ProfileQuery.repositoryOwner.asUser.pinnedItems.nodes?.let {
             for (node in it) {
-                val userRepo: UserRepo =
+                val userRepo =
                     UserRepo(
                         node?.asRepository?.id,
                         node?.asRepository?.owner?.avatarUrl as? String ?: "n/a",
                         node?.asRepository?.owner?.login ?: "n/a",
                         node?.asRepository?.name ?: "n/a",
                         node?.asRepository?.description ?: "n/a",
-                        node?.asRepository?.primaryLanguage as? String ?: "n/a",
+                        node?.asRepository?.primaryLanguage?.name ?: "n/a",
                         node?.asRepository?.stargazerCount ?: -1,
                     )
                 listPinnedUserRepos.add(userRepo)
             }
 
-            val pinnedReposListUser: UserRepoList =
+            val pinnedReposListUser =
                 UserRepoList(
                     listPinnedUserRepos,
                     Constants.VERTICAL
@@ -138,20 +167,20 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
 
         ProfileQuery.repositoryOwner.asUser.topRepositories.nodes?.let {
             for (node in it) {
-                val userRepo: UserRepo =
+                val userRepo =
                     UserRepo(
                         node?.id,
                         node?.owner?.avatarUrl as? String ?: "n/a",
                         node?.owner?.login ?: "n/a",
                         node?.name ?: "n/a",
                         node?.description ?: "n/a",
-                        node?.primaryLanguage as? String ?: "n/a",
+                        node?.primaryLanguage?.name  ?: "n/a",
                         node?.stargazerCount ?: -1,
                     )
                 listTopUserRepos.add(userRepo)
             }
 
-            val topReposListUser: UserRepoList =
+            val topReposListUser =
                 UserRepoList(
                     listTopUserRepos,
                     Constants.HORIZONTAL
@@ -162,20 +191,20 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
 
         ProfileQuery.repositoryOwner.asUser.starredRepositories.nodes?.let {
             for (node in it) {
-                val userRepo: UserRepo =
+                val userRepo =
                     UserRepo(
                         node?.id,
                         node?.owner?.avatarUrl as? String ?: "n/a",
                         node?.owner?.login ?: "n/a",
                         node?.name ?: "n/a",
                         node?.description ?: "n/a",
-                        node?.primaryLanguage as? String ?: "n/a",
+                        node?.primaryLanguage?.name  ?: "n/a",
                         node?.stargazerCount ?: -1,
                     )
                 listStarredUserRepos.add(userRepo)
             }
 
-            val starredReposListUser: UserRepoList =
+            val starredReposListUser =
                 UserRepoList(
                     listStarredUserRepos,
                     Constants.HORIZONTAL
@@ -187,11 +216,11 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
         showFeedItems(vertical_recyclerview, list)
     }
 
-    private fun repoItemClick(data: UserRepo) {
+    private fun repoItemClick() {
 
     }
 
-    private fun userProfileClick(data: User) {
+    private fun userProfileClick() {
 
     }
 
@@ -201,13 +230,13 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
             val viewBinders = mutableMapOf<FeedItemClass, FeedItemBinder>()
 
             val userProfileViewBinder =
-                UserProfileViewBinder { data: User ->
-                    userProfileClick(data)
+                UserProfileViewBinder { user: User ->
+                    userProfileClick()
                 }
 
             val repoListViewBinder =
-                RepoListViewBinder { data: UserRepo ->
-                    repoItemClick(data)
+                RepoListViewBinder { userRepo: UserRepo ->
+                    repoItemClick()
                 }
 
             viewBinders[userProfileViewBinder.modelClass] = userProfileViewBinder as FeedItemBinder

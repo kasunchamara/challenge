@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">Otrium Challenge</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="followers">%1$d Followers</string>
     <string name="following">%1$d Following</string>
 
     <string name="view_all"><u><font color='black'>View all</font></u></string>
     <string name="profile">Profile</string>
+
+    <string name="error_title">Can not fetching data</string>
+    <string name="error_desc">Please check your connection or authentication token expired \nplease update token and relaunch the app</string>
+    <string name="ok">Ok</string>
 </resources>
