@@ -8,6 +8,6 @@
     <string name="profile">Profile</string>
 
     <string name="error_title">Can not fetching data</string>
-    <string name="error_desc">Please check your connection or authentication token expired \nplease update token and relaunch the app</string>
+    <string name="error_desc">Please check your connection or authentication token expired \nplease update token and relaunch the app(Refer readme file, How to update token?)</string>
     <string name="ok">Ok</string>
 </resources>

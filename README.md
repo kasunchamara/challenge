@@ -5,3 +5,8 @@ Using technologies
 2. Dagger
 3. RxJava
 4. MVP Architecture
+
+How to update token?
+
+1. go to src -> main -> res -> values -> conf.xml file
+2. <string name="token">UPDATE THE TOKEN HERE</string>

@@ -67,6 +67,7 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
         presenter.getProfileData(false) // presenter call the get data main presenter method
     }
 
+    //get user data
     override fun getUserLiveData(data: MutableLiveData<ProfileQuery.Data>) {
         data.observe(this, Observer {
             if (it != null) {
@@ -83,6 +84,7 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
         })
     }
 
+    //get user refresh data
     override fun getRefreshUserLiveData(data: MutableLiveData<ProfileQuery.Data>) {
         data.observe(this, Observer {
             if (it != null) {
@@ -93,6 +95,7 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
         })
     }
 
+    // connection or auth error popup this dialog
     private fun showErrorDialog() {
         val builder = context?.let { AlertDialog.Builder(it) }
         builder?.setTitle(R.string.error_title)
@@ -105,12 +108,14 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
         alertDialog.show()
     }
 
+    // loading progress bar show method
     override fun showProgress() {
         if (progressBar?.visibility != View.VISIBLE) {
             progressBar?.visibility = View.VISIBLE
         }
     }
 
+    // loading progress bar hide method
     override fun hideProgress() {
         if (progressBar?.visibility == View.VISIBLE) {
             progressBar?.visibility = View.INVISIBLE
