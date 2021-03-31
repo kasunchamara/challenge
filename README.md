@@ -1,8 +1,7 @@
 # Otrium Challenge
-Otrium Challenge using Kotlin
 
 Using technologies
-# Kotlin
-# Dagger
-# RxJava
-# MVP Architecture
+1. Kotlin
+2. Dagger
+3. RxJava
+4. MVP Architecture
