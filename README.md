@@ -1,1 +1,2 @@
-# challenge
+# OtriumAndroidChallenge
+Otrium Android Challenge.

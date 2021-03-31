@@ -1,0 +1,73 @@
+query Profile {
+  repositoryOwner(login: "ogulcan") {
+    ... on User {
+      avatarUrl
+      name
+      login
+      email
+      followers(first: 0){
+        totalCount
+      }
+      following(first: 0){
+        totalCount
+      }
+
+
+      pinnedItems(first: 3){
+        nodes {
+          ... on Repository {
+            id
+            name
+            description
+            owner{
+              avatarUrl
+              login
+            }
+            primaryLanguage{
+              name
+            }
+            stargazerCount
+          }
+        }
+      }
+
+      topRepositories(first: 10, orderBy: {field: STARGAZERS, direction: DESC}) {
+        nodes {
+          ... on Repository {
+            id
+            name
+            description
+            owner{
+              avatarUrl
+              login
+            }
+            primaryLanguage{
+              name
+            }
+            stargazerCount
+          }
+        }
+      }
+
+      starredRepositories(first: 10) {
+        nodes {
+          ... on Repository {
+            id
+            name
+            description
+            owner{
+              avatarUrl
+              login
+            }
+            primaryLanguage{
+              name
+            }
+            stargazerCount
+          }
+        }
+      }
+    }
+  }
+}
+
+
