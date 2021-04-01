@@ -9,4 +9,4 @@ Using technologies
 How to update token?
 
 1. go to src -> main -> res -> values -> conf.xml file
-2. <string name="token">UPDATE THE TOKEN HERE</string>
+2. name="token">UPDATE THE TOKEN HERE<
