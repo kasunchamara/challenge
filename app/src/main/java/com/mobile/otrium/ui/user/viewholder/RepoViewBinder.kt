@@ -35,7 +35,7 @@ class RepoViewBinder(private val block: (data: UserRepo) -> Unit) :
     override fun areContentsTheSame(oldItem: UserRepo, newItem: UserRepo) = oldItem == newItem
 
     override fun areItemsTheSame(oldItem: UserRepo, newItem: UserRepo): Boolean {
-        return oldItem.id == newItem.id
+        return false
     }
 }
 

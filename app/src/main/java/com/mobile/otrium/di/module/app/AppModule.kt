@@ -5,6 +5,7 @@ import android.content.Context
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.cache.http.ApolloHttpCache
 import com.apollographql.apollo.cache.http.DiskLruHttpCacheStore
+import com.apollographql.apollo.cache.normalized.sql.SqlNormalizedCacheFactory
 import com.mobile.otrium.di.auth.AuthInterceptor
 import dagger.Module
 import dagger.Provides
@@ -55,10 +56,13 @@ class AppModule {
     @Provides
     fun provideApolloClient(
         authInterceptor: AuthInterceptor,
-        cacheStore: DiskLruHttpCacheStore
+        cacheStore: DiskLruHttpCacheStore,
+        context: Context
     ): ApolloClient {
+        val sqlNormalizedCacheFactory = SqlNormalizedCacheFactory(context, "apollo.db")
         return ApolloClient.builder()
             .serverUrl("https://api.github.com/graphql")
+            .normalizedCache(sqlNormalizedCacheFactory)
             .okHttpClient(
                 OkHttpClient.Builder()
                     .addInterceptor(authInterceptor)

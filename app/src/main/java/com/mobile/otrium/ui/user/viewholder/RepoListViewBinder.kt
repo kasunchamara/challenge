@@ -64,10 +64,7 @@ class RepoListViewHolder(val view: View, val block: (data: UserRepo) -> Unit) :
                     }
                 val viewBinders = mutableMapOf<FeedItemClass, FeedBinder>()
 
-                viewBinders.put(
-                    repoViewBinder.modelClass,
-                    repoViewBinder as FeedBinder
-                )
+                viewBinders[repoViewBinder.modelClass] = repoViewBinder as FeedBinder
                 adapter =
                     FeedAdapter(viewBinders)
             }
