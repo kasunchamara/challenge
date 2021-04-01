@@ -10,7 +10,7 @@ package com.mobile.otrium.models
 * @param following : profile following number of count
 * */
 data class User(
-    val avatarUrl: String,
+    val avatarUrl: String?,
     val name: String,
     val login: String,
     val email: String,

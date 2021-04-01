@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -20,7 +19,7 @@ import com.mobile.otrium.models.UserRepoList
 import com.mobile.otrium.ui.contract.ProfileContract
 import com.mobile.otrium.ui.presenter.ProfilePresenter
 import com.mobile.otrium.ui.user.adapter.FeedAdapter
-import com.mobile.otrium.ui.user.adapter.FeedItemBinder
+import com.mobile.otrium.ui.user.adapter.FeedBinder
 import com.mobile.otrium.ui.user.adapter.FeedItemClass
 import com.mobile.otrium.ui.user.viewholder.RepoListViewBinder
 import com.mobile.otrium.ui.user.viewholder.UserProfileViewBinder
@@ -127,6 +126,7 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
         presenter.getRefreshedUserLiveData()
     }
 
+    // add graphql response data
     private fun addData(
         ProfileQuery: ProfileQuery.Data,
         list: ArrayList<Any>,
@@ -135,18 +135,20 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
         listStarredUserRepos: ArrayList<UserRepo>,
     ) {
 
+        //profile model
         val userProfileModel = User(
-            ProfileQuery.repositoryOwner?.asUser?.avatarUrl as String,
-            ProfileQuery.repositoryOwner.asUser.name ?: "n/a",
-            ProfileQuery.repositoryOwner.asUser.login,
-            ProfileQuery.repositoryOwner.asUser.email,
-            ProfileQuery.repositoryOwner.asUser.followers.totalCount,
-            ProfileQuery.repositoryOwner.asUser.following.totalCount
+            ProfileQuery.repositoryOwner?.asUser?.avatarUrl as? String ?: "n/a",
+            ProfileQuery.repositoryOwner?.asUser?.name ?: "n/a",
+            ProfileQuery.repositoryOwner?.asUser?.login ?: "n/a",
+            ProfileQuery.repositoryOwner?.asUser?.email ?: "n/a",
+            ProfileQuery.repositoryOwner?.asUser?.followers?.totalCount ?: 0,
+            ProfileQuery.repositoryOwner?.asUser?.following?.totalCount ?: 0
         )
         profile.add(userProfileModel)
         list.add(profile[0])
 
-        ProfileQuery.repositoryOwner.asUser.pinnedItems.nodes?.let {
+        //pinned item
+        ProfileQuery.repositoryOwner?.asUser?.pinnedItems?.nodes?.let {
             for (node in it) {
                 val userRepo =
                     UserRepo(
@@ -170,7 +172,8 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
             list.add(pinnedReposListUser)
         }
 
-        ProfileQuery.repositoryOwner.asUser.topRepositories.nodes?.let {
+        //top repository item
+        ProfileQuery.repositoryOwner?.asUser?.topRepositories?.nodes?.let {
             for (node in it) {
                 val userRepo =
                     UserRepo(
@@ -194,7 +197,8 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
             list.add(topReposListUser)
         }
 
-        ProfileQuery.repositoryOwner.asUser.starredRepositories.nodes?.let {
+        // starred repository items
+        ProfileQuery.repositoryOwner?.asUser?.starredRepositories?.nodes?.let {
             for (node in it) {
                 val userRepo =
                     UserRepo(
@@ -229,24 +233,25 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
 
     }
 
+    // load data listview
     private fun showFeedItems(recyclerView: RecyclerView, list: ArrayList<Any>?) {
 
         if (adapter == null) {
-            val viewBinders = mutableMapOf<FeedItemClass, FeedItemBinder>()
+            val viewBinders = mutableMapOf<FeedItemClass, FeedBinder>()
 
             val userProfileViewBinder =
-                UserProfileViewBinder { user: User ->
+                UserProfileViewBinder {
                     userProfileClick()
                 }
 
             val repoListViewBinder =
-                RepoListViewBinder { userRepo: UserRepo ->
+                RepoListViewBinder {
                     repoItemClick()
                 }
 
-            viewBinders[userProfileViewBinder.modelClass] = userProfileViewBinder as FeedItemBinder
+            viewBinders[userProfileViewBinder.modelClass] = userProfileViewBinder as FeedBinder
 
-            viewBinders[repoListViewBinder.modelClass] = repoListViewBinder as FeedItemBinder
+            viewBinders[repoListViewBinder.modelClass] = repoListViewBinder as FeedBinder
 
             adapter = FeedAdapter(viewBinders)
         }
@@ -260,8 +265,8 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
         (recyclerView.adapter as FeedAdapter).submitList(list ?: emptyList())
     }
 
+    //pull and refresh data
     override fun onRefresh() {
-        Toast.makeText(context, "Refreshed", Toast.LENGTH_SHORT).show()
         swipeContainer?.isRefreshing = false
         presenter.getProfileData(true)
     }

@@ -1,5 +1,5 @@
 query Profile {
-  repositoryOwner(login: "ogulcan") {
+  repositoryOwner(login: "yoesuv") {
     ... on User {
       avatarUrl
       name
