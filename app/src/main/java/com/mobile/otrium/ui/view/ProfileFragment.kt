@@ -159,6 +159,7 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
                         node?.asRepository?.description ?: "n/a",
                         node?.asRepository?.primaryLanguage?.name ?: "n/a",
                         node?.asRepository?.stargazerCount ?: -1,
+                        Constants.MATCH_PARENT
                     )
                 listPinnedUserRepos.add(userRepo)
             }
@@ -184,6 +185,7 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
                         node?.description ?: "n/a",
                         node?.primaryLanguage?.name  ?: "n/a",
                         node?.stargazerCount ?: -1,
+                        Constants.WRAP_CONTENT
                     )
                 listTopUserRepos.add(userRepo)
             }
@@ -209,6 +211,7 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
                         node?.description ?: "n/a",
                         node?.primaryLanguage?.name  ?: "n/a",
                         node?.stargazerCount ?: -1,
+                        Constants.WRAP_CONTENT
                     )
                 listStarredUserRepos.add(userRepo)
             }

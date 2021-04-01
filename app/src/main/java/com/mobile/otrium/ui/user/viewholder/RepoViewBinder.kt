@@ -6,9 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobile.otrium.R
-import com.mobile.otrium.ui.user.adapter.FeedViewBinder
 import com.mobile.otrium.models.UserRepo
+import com.mobile.otrium.ui.user.adapter.FeedViewBinder
+import com.mobile.otrium.util.Constants
 import kotlinx.android.synthetic.main.adapter_repo.view.*
+
 
 /*
 *  Repository binder
@@ -50,6 +52,14 @@ class RepoViewHolder(val view: View, val block: (data: UserRepo) -> Unit) :
         }
 
         itemView.apply {
+            //Change the layout width
+            if(Constants.MATCH_PARENT == data.layoutWidth){
+                val view: View = findViewById(R.id.repoView)
+                val layoutParams: ViewGroup.LayoutParams = view.layoutParams
+                layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+                view.layoutParams = layoutParams
+            }
+
             Glide
                 .with(itemView.context)
                 .load(data.avatarUrl)

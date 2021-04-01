@@ -17,5 +17,6 @@ data class UserRepo(
     val repoName: String,
     val repoDesc: String,
     val primaryLanguage: String,
-    val starCount: Int
+    val starCount: Int,
+    val layoutWidth: Int
 )
