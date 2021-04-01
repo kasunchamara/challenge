@@ -168,7 +168,7 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
                     listPinnedUserRepos,
                     Constants.VERTICAL
                 )
-            pinnedReposListUser.title = "Pinned"
+            pinnedReposListUser.title = context?.resources?.getString(R.string.pinned).toString()
             list.add(pinnedReposListUser)
         }
 
@@ -193,7 +193,7 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
                     listTopUserRepos,
                     Constants.HORIZONTAL
                 )
-            topReposListUser.title = "Top repositories"
+            topReposListUser.title = context?.resources?.getString(R.string.top_repo).toString()
             list.add(topReposListUser)
         }
 
@@ -218,7 +218,7 @@ class ProfileFragment : DaggerFragment(), ProfileContract.View,
                     listStarredUserRepos,
                     Constants.HORIZONTAL
                 )
-            starredReposListUser.title = "Starred repositories"
+            starredReposListUser.title = context?.resources?.getString(R.string.starred_repo).toString()
             list.add(starredReposListUser)
         }
 

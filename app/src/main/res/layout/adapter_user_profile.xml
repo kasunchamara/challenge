@@ -17,8 +17,8 @@
         android:fontFamily="@font/source_sans_pro_bold"
         android:gravity="center"
         android:text="@string/profile"
-        android:textColor="#000000"
-        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +32,7 @@
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/source_sans_pro_bold"
         android:gravity="start"
-        tools:text="Sian Taylor"
+        tools:text=""
         android:textColor="#000000"
         android:textSize="32sp"
         app:layout_constraintBottom_toTopOf="@+id/login"
@@ -50,7 +50,7 @@
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/source_sans_pro_regular"
         android:gravity="start"
-        tools:text="setaylor"
+        tools:text=""
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/avatar"
@@ -68,7 +68,8 @@
         android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileTextview"
-        android:src="@drawable/ic_launcher_background" />
+        android:src="@drawable/ic_launcher_background"
+        android:contentDescription="@string/avatar_preview" />
 
     <!-- User email -->
     <TextView
@@ -83,7 +84,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/avatar"
         app:layout_constraintTop_toBottomOf="@+id/avatar"
-        tools:text="s.e.taylor@gmail.com" />
+        tools:text="" />
 
     <!-- Followers count -->
     <TextView
@@ -96,7 +97,7 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/avatar"
         app:layout_constraintTop_toBottomOf="@+id/email"
-        tools:text="73 Followers" />
+        tools:text="" />
 
     <!-- Following count-->
     <TextView
@@ -110,5 +111,5 @@
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/followers"
         app:layout_constraintTop_toBottomOf="@+id/email"
-        tools:text="16 Following" />
+        tools:text="" />
 </androidx.constraintlayout.widget.ConstraintLayout>

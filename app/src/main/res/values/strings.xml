@@ -10,4 +10,15 @@
     <string name="error_title">Can not fetching data</string>
     <string name="error_desc">Please check your connection or authentication token expired \nplease update token and relaunch the app(Refer readme file, How to update token?)</string>
     <string name="ok">Ok</string>
+    <string name="profile_image">Profile Image</string>
+
+    <string name="pinned">Pinned</string>
+    <string name="top_repo">Top repositories</string>
+    <string name="starred_repo">Starred repositories</string>
+
+    <!-- content description -->
+    <string name="profile_img">Profile Image</string>
+    <string name="stars">stars</string>
+    <string name="language_preview_circle">language preview circle</string>
+    <string name="avatar_preview">avatar preview</string>
 </resources>
