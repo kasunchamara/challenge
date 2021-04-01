@@ -5,18 +5,26 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 typealias FeedItemClass = Class<out Any>
-typealias FeedItemBinder = FeedItemViewBinder<Any, RecyclerView.ViewHolder>
+typealias FeedBinder = FeedViewBinder<Any, RecyclerView.ViewHolder>
 
+/*
+* Feed adapter
+*
+* */
 class FeedAdapter(
-    private val viewBinders: Map<FeedItemClass, FeedItemBinder>
-) : ListAdapter<Any, RecyclerView.ViewHolder>(FeedDiffCallback(viewBinders)) {
+    private val viewBinders: Map<FeedItemClass, FeedBinder>
+) : ListAdapter<Any, RecyclerView.ViewHolder>(
+    FeedCallback(
+        viewBinders
+    )
+) {
 
-    private val viewTypeToBinders = viewBinders.mapKeys { it.value.getFeedItemType() }
+    private val viewTypeToBinders = viewBinders.mapKeys { it.value.getFeedType() }
 
-    private fun getViewBinder(viewType: Int): FeedItemBinder = viewTypeToBinders.getValue(viewType)
+    private fun getViewBinder(viewType: Int): FeedBinder = viewTypeToBinders.getValue(viewType)
 
     override fun getItemViewType(position: Int): Int =
-        viewBinders.getValue(super.getItem(position).javaClass).getFeedItemType()
+        viewBinders.getValue(super.getItem(position).javaClass).getFeedType()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return getViewBinder(viewType).createViewHolder(parent)
@@ -26,13 +34,4 @@ class FeedAdapter(
         return getViewBinder(getItemViewType(position)).bindViewHolder(getItem(position), holder)
     }
 
-    override fun onViewRecycled(holder: RecyclerView.ViewHolder) {
-        getViewBinder(holder.itemViewType).onViewRecycled(holder)
-        super.onViewRecycled(holder)
-    }
-
-    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
-        getViewBinder(holder.itemViewType).onViewDetachedFromWindow(holder)
-        super.onViewDetachedFromWindow(holder)
-    }
 }

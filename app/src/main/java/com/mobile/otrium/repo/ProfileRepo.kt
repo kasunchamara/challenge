@@ -9,14 +9,16 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
-class ProfileRepositoryImpl @Inject constructor(private val apolloClient: ApolloClient) : ProfileRepository {
+/*
+* @constructor inject apolloClient
+* */
+class ProfileRepo @Inject constructor(private val apolloClient: ApolloClient) : IProfileRepo {
 
     override fun getProfileInfo(): Observable<Response<ProfileQuery.Data>> {
 
-        // Create a query object
         val query = ProfileQuery()
-        // Directly create Observable with Kotlin extension
         val observable = apolloClient.rxQuery(query)
+        // Observable with Kotlin extension
         return observable.observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread())
     }
 }

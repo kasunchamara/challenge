@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.user.ProfileFragment">
+    tools:context=".ui.view.ProfileFragment">
 
+    <!-- Profile text view -->
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/profileTextview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="66dp"
@@ -16,58 +17,63 @@
         android:fontFamily="@font/source_sans_pro_bold"
         android:gravity="center"
         android:text="@string/profile"
-        android:textColor="#000000"
-        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Profile user name -->
     <TextView
-        android:id="@+id/textViewName"
+        android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/source_sans_pro_bold"
         android:gravity="start"
-        tools:text="Sian Taylor"
+        tools:text=""
         android:textColor="#000000"
         android:textSize="32sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewLogin"
+        app:layout_constraintBottom_toTopOf="@+id/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
-        app:layout_constraintTop_toTopOf="@+id/imageViewProfile" />
+        app:layout_constraintStart_toEndOf="@+id/avatar"
+        app:layout_constraintTop_toTopOf="@+id/avatar" />
 
+    <!-- Profile login name -->
     <TextView
-        android:id="@+id/textViewLogin"
+        android:id="@+id/login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/source_sans_pro_regular"
         android:gravity="start"
-        tools:text="setaylor"
+        tools:text=""
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewProfile"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
-        app:layout_constraintTop_toBottomOf="@+id/textViewName" />
+        app:layout_constraintStart_toEndOf="@+id/avatar"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
+    <!-- Avatar image previewer -->
     <ImageView
-        android:id="@+id/imageViewProfile"
+        android:id="@+id/avatar"
         android:layout_width="88dp"
         android:layout_height="88dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:src="@drawable/ic_launcher_background" />
+        app:layout_constraintTop_toBottomOf="@+id/profileTextview"
+        android:src="@drawable/ic_launcher_background"
+        android:contentDescription="@string/avatar_preview" />
 
+    <!-- User email -->
     <TextView
-        android:id="@+id/textViewEmail"
+        android:id="@+id/email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -76,24 +82,26 @@
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageViewProfile"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewProfile"
-        tools:text="s.e.taylor@gmail.com" />
+        app:layout_constraintStart_toStartOf="@+id/avatar"
+        app:layout_constraintTop_toBottomOf="@+id/avatar"
+        tools:text="" />
 
+    <!-- Followers count -->
     <TextView
-        android:id="@+id/textViewFollowers"
+        android:id="@+id/followers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/source_sans_pro_regular"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/imageViewProfile"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEmail"
-        tools:text="73 Followers" />
+        app:layout_constraintStart_toStartOf="@+id/avatar"
+        app:layout_constraintTop_toBottomOf="@+id/email"
+        tools:text="" />
 
+    <!-- Following count-->
     <TextView
-        android:id="@+id/textViewFollowing"
+        android:id="@+id/following"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -101,7 +109,7 @@
         android:fontFamily="@font/source_sans_pro_regular"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/textViewFollowers"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEmail"
-        tools:text="16 Following" />
+        app:layout_constraintStart_toEndOf="@+id/followers"
+        app:layout_constraintTop_toBottomOf="@+id/email"
+        tools:text="" />
 </androidx.constraintlayout.widget.ConstraintLayout>

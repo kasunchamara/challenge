@@ -1,4 +1,4 @@
-package com.mobile.otrium.ui.user.adapter.viewholder
+package com.mobile.otrium.ui.user.viewholder
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,18 +6,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobile.otrium.R
-import com.mobile.otrium.ui.user.adapter.FeedItemViewBinder
+import com.mobile.otrium.ui.user.adapter.FeedViewBinder
 import com.mobile.otrium.models.User
 import kotlinx.android.synthetic.main.adapter_user_profile.view.*
 
+/*
+*  Profile binder
+* */
 class UserProfileViewBinder(val block: (data: User) -> Unit) :
-    FeedItemViewBinder<User, UserProfileViewHolder>(
+    FeedViewBinder<User, UserProfileViewHolder>(
         User::class.java
     ) {
 
     override fun createViewHolder(parent: ViewGroup): UserProfileViewHolder {
         return UserProfileViewHolder(
-            LayoutInflater.from(parent.context).inflate(getFeedItemType(), parent, false), block
+            LayoutInflater.from(parent.context).inflate(getFeedType(), parent, false), block
         )
     }
 
@@ -25,7 +28,7 @@ class UserProfileViewBinder(val block: (data: User) -> Unit) :
         viewHolder.bind(model)
     }
 
-    override fun getFeedItemType() = R.layout.adapter_user_profile
+    override fun getFeedType() = R.layout.adapter_user_profile
 
     override fun areContentsTheSame(oldItem: User, newItem: User) =
         oldItem == newItem
@@ -35,7 +38,9 @@ class UserProfileViewBinder(val block: (data: User) -> Unit) :
     }
 }
 
-
+/*
+* UI set the parameter profile view
+* */
 class UserProfileViewHolder(val view: View, val block: (data: User) -> Unit) :
     RecyclerView.ViewHolder(view) {
 
@@ -50,14 +55,14 @@ class UserProfileViewHolder(val view: View, val block: (data: User) -> Unit) :
                 .with(itemView.context)
                 .load(data.avatarUrl)
                 .circleCrop()
-                .into(imageViewProfile)
+                .into(avatar)
 
-            textViewName.text = data.name
-            textViewLogin.text = data.login
-            textViewEmail.text = data.email
-            textViewFollowers.text =
+            name.text = data.name
+            login.text = data.login
+            email.text = data.email
+            followers.text =
                 String.format(context.getText(R.string.followers) as String, data.followers)
-            textViewFollowing.text =
+            following.text =
                 String.format(context.getText(R.string.following) as String, data.following)
         }
     }

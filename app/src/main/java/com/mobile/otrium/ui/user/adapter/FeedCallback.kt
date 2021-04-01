@@ -2,8 +2,11 @@ package com.mobile.otrium.ui.user.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 
-class FeedDiffCallback(
-    private val viewBinders: Map<FeedItemClass, FeedItemBinder>
+/*
+* Feed callback using set the view binder items
+* */
+class FeedCallback(
+    private val viewBinders: Map<FeedItemClass, FeedBinder>
 ) : DiffUtil.ItemCallback<Any>() {
 
     override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
